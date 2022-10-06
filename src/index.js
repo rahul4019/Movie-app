@@ -1,27 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {createStore} from 'redux'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createStore } from "redux";
 
-import './index.css';
-import App from './components/App';
-import movies from './reducers'
+import "./index.css";
+import App from "./components/App";
+import rootReducer from "./reducers";
 
-const store = createStore(movies)
-console.log('store', store)
-console.log('Before STATE', store.getState())
+const store = createStore(rootReducer);
+console.log("store", store);
+// console.log('Before STATE', store.getState())
 
-store.dispatch({
-  type: 'ADD_MOVIES',
-  movies: [{name: 'Superman'}]
-})
+// store.dispatch({
+//   type: 'ADD_MOVIES',
+//   movies: [{name: 'Superman'}]
+// })
 
-console.log('After STATE', store.getState())
+// console.log("After STATE", store.getState());
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App store={store}/>
+    <App store={store} />
   </React.StrictMode>
 );
-
-
