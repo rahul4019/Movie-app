@@ -7,16 +7,15 @@ import { addMovies, setShowFavourites } from "../actions";
 class App extends React.Component {
   componentDidMount() {
     const { store } = this.props;
+
+
     store.subscribe(() => {
-      console.log("UPDATED");
       this.forceUpdate();
     });
-
+      
     // make an api call
     // dispatch action
-    this.props.store.dispatch(addMovies(data));
-
-    console.log("STATE", this.props.store.getState());
+    store.dispatch(addMovies(data));
   }
 
   isMovieFavourite = (movie) => {
@@ -36,15 +35,14 @@ class App extends React.Component {
   };
 
   render() {
-    const { movies } = this.props.store.getState(); // {movies: {}, search: {}}
+    const { movies, search } = this.props.store.getState(); // {movies: {}, search: {}}
     const { list, favourites, showFavourites } = movies;
-    console.log("RENDER", this.props.store.getState());
 
     const displayMovies = showFavourites ? favourites : list;
 
     return (
       <div className="App">
-        <Navbar />
+        <Navbar search={search} dispatch={this.props.store.dispatch} />
         <div className="main">
           <div className="tabs">
             <div
