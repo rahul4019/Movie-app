@@ -1,4 +1,5 @@
 import React from "react";
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -6,7 +7,6 @@ import thunk from "redux-thunk";
 import "./index.css";
 import App from "./components/App";
 import rootReducer from "./reducers";
-import { createContext } from "react";
 
 // function logger(obj, next, action)
 // logger(obj)(next)(action)
@@ -45,11 +45,12 @@ const logger =
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 // console.log('Before STATE', store.getState())
 
-export const StoreContext = createContext();
+// export const StoreContext = createContext();
 
-console.log("StoreContext: ", StoreContext);
+// console.log("StoreContext: ", StoreContext);
 
-class Provider extends React.Component {
+
+/* class Provider extends React.Component {
   render() {
     const { store } = this.props;
     return (
@@ -58,10 +59,10 @@ class Provider extends React.Component {
       </StoreContext.Provider>
     );
   }
-}
+} */
 
 // const connectedAppComponent = connect(callback)(App);
-export function connect(callBack) {
+/* export function connect(callBack) {
   return function (Component) {
     class ConnectedComponent extends React.Component {
       constructor(props) {
@@ -96,7 +97,7 @@ export function connect(callBack) {
     return ConnectedComponentWrapper;
   };
 }
-
+ */
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
