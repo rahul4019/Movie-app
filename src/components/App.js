@@ -3,16 +3,16 @@ import { data } from "../data";
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
 import { addMovies, setShowFavourites } from "../actions";
+import { StoreContext } from "..";
 
 class App extends React.Component {
   componentDidMount() {
     const { store } = this.props;
 
-
     store.subscribe(() => {
       this.forceUpdate();
     });
-      
+
     // make an api call
     // dispatch action
     store.dispatch(addMovies(data));
@@ -37,12 +37,11 @@ class App extends React.Component {
   render() {
     const { movies, search } = this.props.store.getState(); // {movies: {}, search: {}}
     const { list, favourites, showFavourites } = movies;
-
     const displayMovies = showFavourites ? favourites : list;
 
     return (
       <div className="App">
-        <Navbar search={search} dispatch={this.props.store.dispatch} />
+        <Navbar search={search} />
         <div className="main">
           <div className="tabs">
             <div
@@ -78,4 +77,14 @@ class App extends React.Component {
   }
 }
 
-export default App;
+class AppWrapper extends React.Component {
+  render() {
+    return (
+      <StoreContext.Consumer>
+        {(store) => <App store={store} />}
+      </StoreContext.Consumer>
+    );
+  }
+}
+
+export default AppWrapper;
